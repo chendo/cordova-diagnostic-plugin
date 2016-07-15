@@ -920,6 +920,25 @@ var Diagnostic = (function(){
 		Diagnostic.requestRuntimePermission(successCallback, errorCallback, Diagnostic.permission.RECORD_AUDIO);
 	};
 
+	/***************************
+	 * Credential Storage
+	 ***************************/
+
+	/**
+	 * Checks if the application can use credential storage
+	 *
+	 * @param {Function} successCallback - The callback which will be called when operation is successful.
+	 * This callback function is passed a single boolean parameter which is TRUE if credential storage available
+	 * @param {Function} errorCallback -  The callback which will be called when operation encounters an error.
+	 * This callback function is passed a single string parameter containing the error message.
+	 */
+	Diagnostic.isCredentialStorageAvailable = function(successCallback, errorCallback) {
+		return cordova.exec(ensureBoolean(successCallback),
+				errorCallback,
+				'Diagnostic',
+				'isCredentialStorageAvailable', []);
+	};
+
 	/*************
 	 * Contacts
 	 *************/
@@ -1018,4 +1037,3 @@ var Diagnostic = (function(){
 });
 
 module.exports = new Diagnostic();
-

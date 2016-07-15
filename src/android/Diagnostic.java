@@ -313,6 +313,8 @@ public class Diagnostic extends CordovaPlugin{
                 this.getPermissionAuthorizationStatus(args);
             } else if(action.equals("getPermissionsAuthorizationStatus")) {
                 this.getPermissionsAuthorizationStatus(args);
+            } else if(action.equals("isCredentialStorageAvailable")) {
+                callbackContext.success(isCredentialStorageAvailable() ? 1 : 0);
             } else if(action.equals("requestRuntimePermission")) {
                 this.requestRuntimePermission(args);
             } else if(action.equals("requestRuntimePermissions")) {
@@ -488,6 +490,12 @@ public class Diagnostic extends CordovaPlugin{
     public String getBluetoothState(){
         return bluetoothState;
     }
+
+    public Boolean isCredentialStorageAvailable() {
+        KeyguardManager keyguardManager = (KeyguardManager) this.cordova.getActivity().getSystemService(Context.KEYGUARD_SERVICE);
+        return keyguardManager.isKeyguardSecure();
+    }
+
 
     public void getPermissionsAuthorizationStatus(JSONArray args) throws Exception{
         JSONArray permissions = args.getJSONArray(0);
